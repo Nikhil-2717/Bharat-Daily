@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="section-title mt-5">
+
+    Recent Posts - {{ category }}
+
+</h2>
+
+{% for post in posts %}
+
+<div class="hero-section mb-4"
+     style="background-image:url({{ post.featured_image.url }});">
+
+    <div class="col-lg-8 px-0">
+
+        <h1 class="hero-title">
+
+            {{ post.title }}
+
+        </h1>
+
+        <p class="hero-desc">
+
+            {{ post.short_description|truncatewords:30 }}
+
+        </p>
+
+        <a href="#"
+           class="btn btn-warning mt-3">
+
+            Continue Reading
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

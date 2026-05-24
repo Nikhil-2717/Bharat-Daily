@@ -8,7 +8,7 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'categories'
 
-    def __str__(self):
+    def __str__(self):       #It is the strign representation of the category model 
         return self.category_name
 
  # Here we are mkaing this beacuse we want the status of teh blog to be either draft or published so we will use it as dropdown   
