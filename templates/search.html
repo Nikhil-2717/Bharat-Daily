@@ -1,14 +1,14 @@
-{% extends 'base.html' %}
+{%extends 'base.html'%}
 
-{% block content %}
+{% block content%}
 
 <h2 class="section-title mt-5">
 
-    Recent Posts - {{ category }}
+    Search keyword - {{ keyword }}
 
 </h2>
 
-{% for post in posts %}
+{% for post in blogs %}
 
 <div class="hero-section mb-4"
      style="background-image:url({{ post.featured_image.url }});">
@@ -37,7 +37,5 @@
     </div>
 
 </div>
-
-{% endfor %}
-
+{%endfor%}
 {% endblock %}

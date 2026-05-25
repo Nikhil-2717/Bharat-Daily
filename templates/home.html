@@ -31,7 +31,7 @@
             </p>
 
             <p class="lead mb-0">
-                <a href="#" class="text-white font-weight-bold">
+                <a href="{%url 'single_blog' post.slug%}" class="text-white font-weight-bold">
                     Continue reading...
                 </a>
             </p>
@@ -70,8 +70,8 @@
 
                 <div class="card-body">
 
-                    <h3 class="card-title">
-                        {{ post.title }}
+                    <h3 class="card-title" class="text-black"><a href="{%url 'single_blog' post.slug%}">{{ post.title }}</a>
+                        
                     </h3>
 
                     <small class="text-muted d-block mb-2">
@@ -120,9 +120,9 @@
 
                 <div class="card-body">
 
-                    <h3 class="card-title">
+                    <h3 class="card-title"><a href="{%url 'single_blog' post.slug%}"> {{ post.title }}</a>
 
-                        {{ post.title }}
+                       
 
                     </h3>
 
@@ -173,7 +173,7 @@
                 </div>
 
             </div>
-
+            {%if social_link%}
             <div class="card border-0 shadow-sm">
 
                 <div class="card-body">
@@ -185,20 +185,20 @@
                     </h4>
 
                     <ol class="list-unstyled mb-0">
-
+                        {%for link in social_link%}
                         <li class="mb-2">
-                            <a href="#">GitHub</a>
+                            <a href="{{link.link}}" target="_blank">{{link.platform}}</a>
                         </li>
+                        {%endfor%}
 
-                        <li>
-                            <a href="#">LinkedIn</a>
-                        </li>
+                        
 
                     </ol>
 
                 </div>
 
             </div>
+            {%endif%}
 
         </div>
 

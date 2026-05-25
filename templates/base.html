@@ -237,6 +237,42 @@
 
                     </li>
 
+                    
+<li class="nav-item ml-3">
+
+    <form action="{% url 'search'%}" method="get" class="d-flex align-items-center" style="gap:0;">
+
+        <input type="search"
+               class="form-control"
+               placeholder="Search"
+               input="text"
+               name="keyword"
+               style="
+               width:180px;
+               height:38px;
+               border-radius:8px 0 0 8px;
+               border-right:none;
+               ">
+
+        <button type="submit"
+                class="btn btn-primary"
+                style="
+                height:38px;
+                border-radius:0 8px 8px 0;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                padding:0 14px;
+                ">
+
+            <i class="fa fa-search"></i>
+
+        </button>
+
+    </form>
+
+</li>
+
                 </ul>
 
             </div>
