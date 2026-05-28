@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--jw@y2vt2z1j=mua-@c0lt(s@qd*ti@5wr46bt9s9q5v$k=qc^'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     "crispy_bootstrap4",
     'dashboards',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'blog_main.urls'
@@ -122,13 +125,35 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR /'static'
+
 STATICFILES_DIRS = [
-    'blog_main/static',
+    BASE_DIR / 'blog_main/static',
 ]
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+CLOUDINARY_STORAGE = {
+
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+
+    'API_KEY': os.environ.get('API_KEY'),
+
+    'API_SECRET': os.environ.get('API_SECRET'),
+}
+
+
+STORAGES = {
+
+    "default": {
+
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+
+    "staticfiles": {
+
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
