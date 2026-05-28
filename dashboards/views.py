@@ -103,6 +103,29 @@ def delete_post(request,pk):
     post.delete()
     return redirect('posts')
 
+def my_posts(request):
+    posts = Blog.objects.filter(author=request.user).all()
+    context = {
+        'posts':posts
+    }
+    return render(request,'dashboard/my_posts.html',context)
+
+def save_post(request,pk):
+    post = get_object_or_404(Blog,pk=pk)
+    post.marked_posts.add(request.user)
+    post.save()
+    return redirect('home')
+
+def saved_posts(request):
+
+    posts = request.user.saved_posts.all()
+
+    context = {
+        'posts': posts
+    }
+
+    return render(request,'dashboard/saved_posts.html',context)
+
 def users(request):
     users = User.objects.all()
     context={

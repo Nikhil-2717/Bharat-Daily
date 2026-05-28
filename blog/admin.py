@@ -12,3 +12,4 @@ admin.site.register(Category)
 admin.site.register(Blog,BlogAdmin)
 admin.site.register(SocialLink)
 admin.site.register(Comment)
+

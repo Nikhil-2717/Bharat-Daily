@@ -16,6 +16,9 @@
                     <div class="text-muted fst-italic mb-2">Posted on {{ blog.created_at }} by {{blog.author }}</div>
                     <!-- Post category-->
                     <a class="badge bg-warning text-decoration-none text-light" href="#!">{{blog.category }}</a>
+                    <a href="{% url 'save_post' blog.id %}" class="btn btn-warning">
+                        Save Post
+                    </a>
                 </header>
                 <!-- Preview image figure-->
                 <figure class="mb-4"><img class="img-fluid rounded" src="{{ blog.featured_image.url }}" alt="..." />

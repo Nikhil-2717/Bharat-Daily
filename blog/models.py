@@ -30,6 +30,11 @@ class Blog(models.Model):
     featured = models.BooleanField(default=False)
     created_at= models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    marked_posts = models.ManyToManyField(
+        User,
+        blank=True,
+        related_name='saved_posts'
+    )
 
     def __str__(self):
         return self.title
@@ -52,4 +57,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
+    
+
 
