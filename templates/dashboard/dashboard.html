@@ -1,29 +1,122 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
-{%block content%}
-<div class="row">
+{% block content %}
+
+<style>
+    .dash-layout {
+        display: flex;
+        min-height: calc(100vh - 72px);
+        margin: 0 -15px;
+    }
+
+    .dash-content {
+        padding: 44px 40px;
+        flex: 1;
+    }
+
+    .dash-welcome {
+        margin-bottom: 40px;
+    }
+
+    .dash-welcome-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--amber);
+        margin-bottom: 8px;
+    }
+
+    .dash-welcome-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 36px;
+        font-weight: 900;
+        color: var(--ink);
+        letter-spacing: -1px;
+        margin: 0;
+        line-height: 1.1;
+    }
+
+    .dash-welcome-title em {
+        font-style: italic;
+        color: var(--amber);
+    }
+
+    /* Stat cards */
+    .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 16px;
+        margin-top: 36px;
+    }
+
+    .stat-card {
+        background: var(--white);
+        border-top: 3px solid var(--amber);
+        padding: 28px 24px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card::after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        right: -10px;
+        width: 80px;
+        height: 80px;
+        background: var(--cream);
+        border-radius: 50%;
+    }
+
+    .stat-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 14px;
+    }
+
+    .stat-value {
+        font-family: 'Playfair Display', serif;
+        font-size: 52px;
+        font-weight: 900;
+        color: var(--ink);
+        line-height: 1;
+        letter-spacing: -2px;
+        position: relative;
+        z-index: 1;
+    }
+</style>
+
+<div class="row m-0" style="min-height:calc(100vh - 72px);">
     {% include 'dashboard/sidebar.html' %}
+
     <div class="col-md-9">
-        <span>Logged in as <b>{{ user }}</b></span>
-        <div class="row">
-            <div class="col">
-                <div class="card border-default mb-3">
-                    <div class="card-header text-center text-uppercase font-weight-bold">All Categories</div>
-                    <div class="card-body text-dark">
-                        <h5 class="card-title text-center">{{ category_count }}</h5>
-                    </div>
+        <div class="dash-content">
+
+            <div class="dash-welcome">
+                <p class="dash-welcome-label">Welcome Back</p>
+                <h1 class="dash-welcome-title">Hello, <em>{{ user }}</em></h1>
+            </div>
+
+            <div class="section-label">Overview</div>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-label">All Categories</div>
+                    <div class="stat-value">{{ category_count }}</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">All Posts</div>
+                    <div class="stat-value">{{ blog_count }}</div>
                 </div>
             </div>
 
-            <div class="col">
-                <div class="card border-default mb-3">
-                    <div class="card-header text-center text-uppercase font-weight-bold">All posts</div>
-                    <div class="card-body text-dark">
-                        <h5 class="card-title text-center">{{ blog_count }}</h5>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
-{%endblock%}
+
+{% endblock %}

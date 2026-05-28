@@ -1,1 +1,86 @@
-<p>Not Found the Category which you are looking for</p>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .notfound-wrap {
+        min-height: 65vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 80px 0;
+    }
+
+    .notfound-number {
+        font-family: 'Playfair Display', serif;
+        font-size: 140px;
+        font-weight: 900;
+        color: var(--border);
+        line-height: 1;
+        letter-spacing: -8px;
+        margin-bottom: 0;
+        user-select: none;
+    }
+
+    .notfound-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: var(--amber);
+        margin-bottom: 16px;
+    }
+
+    .notfound-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+    }
+
+    .notfound-desc {
+        font-size: 16px;
+        color: var(--muted);
+        max-width: 380px;
+        margin: 0 auto 36px;
+        line-height: 1.8;
+    }
+
+    .notfound-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--ink);
+        color: var(--cream) !important;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        padding: 13px 30px;
+        text-decoration: none;
+        transition: background 0.2s;
+    }
+
+    .notfound-home:hover {
+        background: var(--amber);
+        color: var(--ink) !important;
+        text-decoration: none;
+    }
+</style>
+
+<div class="notfound-wrap">
+    <div>
+        <div class="notfound-number">404</div>
+        <p class="notfound-label">Page Not Found</p>
+        <h1 class="notfound-title">Category doesn't exist</h1>
+        <p class="notfound-desc">The category you're looking for couldn't be found. It may have been removed or never existed.</p>
+        <a href="/" class="notfound-home">
+            <i class="fa fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+</div>
+
+{% endblock %}

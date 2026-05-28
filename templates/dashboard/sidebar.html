@@ -1,13 +1,138 @@
-<div class="col-md-3">
-    <div class="nav flex-column nav-pills bg-light" aria-orientation="vertical">
-        <a href="{% url 'dashboard' %}" class="nav-link text-dark {% if '/dashboard/' == request.path %}bg-warning{% endif %}">Dashboard</a>
-        {%if perms.auth.view_user%}
-        <a href="{%url 'users'%}" class="nav-link text-dark {% if '/users/' in request.path %}bg-warning{% endif %}">Users</a>
-        {%endif%}
-        <a href="{%url 'my_posts'%}" class="nav-link text-dark {% if '/my_posts' in request.path %}bg-warning{% endif %}">My Blogs</a>
-        <a href="{%url 'saved_posts'%}" class="nav-link text-dark {% if '/saved_posts' in request.path %}bg-warning{% endif %}">Saved Blogs</a>
-        <a href="{%url 'categories'%}" class="nav-link text-dark {% if '/categories/' in request.path %}bg-warning{% endif %}">Categories</a>
-        <!-- <a href="{%url 'posts'%}" class="nav-link text-dark {% if '/posts/' in request.path %}bg-warning{% endif %}">Posts</a> -->
-        <a href="{%url 'logout'%}" class="nav-link text-dark">Logout</a>
+<style>
+    .dash-sidebar {
+        background: var(--ink);
+        min-height: calc(100vh - 72px);
+        padding: 32px 0;
+    }
+
+    .dash-sidebar-inner {
+        padding: 0 20px;
+    }
+
+    .dash-user-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #6b6560;
+        margin-bottom: 6px;
+    }
+
+    .dash-section-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 28px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #2a2724;
+    }
+
+    .dash-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .dash-nav li {
+        margin-bottom: 2px;
+    }
+
+    .dash-nav li a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 14px;
+        font-size: 13px;
+        font-weight: 400;
+        color: #a89f96 !important;
+        text-decoration: none;
+        letter-spacing: 0.3px;
+        border-left: 3px solid transparent;
+        transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .dash-nav li a:hover,
+    .dash-nav li a.active {
+        color: #fff !important;
+        border-left-color: var(--amber);
+        background: rgba(255,255,255,0.04);
+    }
+
+    .dash-nav li a i {
+        font-size: 13px;
+        width: 16px;
+        text-align: center;
+        opacity: 0.7;
+    }
+
+    .dash-nav li a.active i { opacity: 1; }
+
+    .dash-nav-divider {
+        height: 1px;
+        background: #2a2724;
+        margin: 16px 0;
+    }
+
+    .dash-logout a {
+        color: #e74c3c !important;
+    }
+
+    .dash-logout a:hover {
+        color: #ff6b6b !important;
+        border-left-color: #e74c3c;
+    }
+</style>
+
+<div class="col-md-3 p-0">
+    <div class="dash-sidebar">
+        <div class="dash-sidebar-inner">
+            <p class="dash-user-label">Navigation</p>
+            <div class="dash-section-title">Dashboard</div>
+
+            <ul class="dash-nav">
+                <li>
+                    <a href="{% url 'dashboard' %}" class="{% if '/dashboard/' == request.path %}active{% endif %}">
+                        <i class="fa fa-home"></i> Overview
+                    </a>
+                </li>
+
+                {% if perms.auth.view_user %}
+                <li>
+                    <a href="{% url 'users' %}" class="{% if '/users/' in request.path %}active{% endif %}">
+                        <i class="fa fa-users"></i> Users
+                    </a>
+                </li>
+                {% endif %}
+
+                <div class="dash-nav-divider"></div>
+
+                <li>
+                    <a href="{% url 'my_posts' %}" class="{% if '/my_posts' in request.path %}active{% endif %}">
+                        <i class="fa fa-pencil"></i> My Blogs
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'saved_posts' %}" class="{% if '/saved_posts' in request.path %}active{% endif %}">
+                        <i class="fa fa-bookmark"></i> Saved Blogs
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{% url 'categories' %}" class="{% if '/categories/' in request.path %}active{% endif %}">
+                        <i class="fa fa-tag"></i> Categories
+                    </a>
+                </li>
+
+                <div class="dash-nav-divider"></div>
+
+                <li class="dash-logout">
+                    <a href="{% url 'logout' %}">
+                        <i class="fa fa-sign-out"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

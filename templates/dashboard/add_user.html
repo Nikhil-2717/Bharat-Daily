@@ -1,23 +1,48 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 
-{%block content%}
+{% block content %}
 {% load crispy_forms_tags %}
-<div class="row">
-    <!-- Left sidebar -->
-    <!-- load the sidebar here -->
+{% include 'dashboard/_dash_styles.html' %}
+
+<div class="row m-0" style="min-height:calc(100vh - 72px);">
     {% include 'dashboard/sidebar.html' %}
-    {%if perms.auth.add_user%}
-    <!-- Right side content -->
+
+    {% if perms.auth.add_user %}
     <div class="col-md-9">
-        <h2>Add New User</h2>
-        
-        <form action="{% url 'add_user' %}" method="POST" style="width:500px;">
-            {% csrf_token %}
-            {{ form | crispy }}
-            <button type="submit" class="btn btn-warning">Submit</button>
-        </form>
-        <br>
+        <div class="dash-content">
+
+            <div class="dash-page-header">
+                <div>
+                    <p class="dash-page-label">Users</p>
+                    <h1 class="dash-page-title">Add User</h1>
+                </div>
+                <a href="{% url 'users' %}" class="dash-add-btn" style="background:var(--surface); color:var(--ink) !important; border:1px solid var(--border);">
+                    <i class="fa fa-arrow-left"></i> Back
+                </a>
+            </div>
+
+            <div class="dash-form-wrap">
+                <form action="{% url 'add_user' %}" method="POST">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button type="submit" class="dash-form-submit">
+                        Create User <i class="fa fa-user-plus"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
     </div>
-    {%endif%}
+    {% else %}
+    <div class="col-md-9">
+        <div class="dash-content">
+            <div style="padding:80px 0; text-align:center; color:var(--muted);">
+                <i class="fa fa-lock" style="font-size:36px; display:block; margin-bottom:16px; opacity:0.3;"></i>
+                <p style="font-size:16px;">You don't have permission to add users.</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
-{%endblock%}
+
+{% endblock %}

@@ -1,55 +1,75 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
+{% include 'dashboard/_dash_styles.html' %}
 
-<div class="row">
-    <!-- Left sidebar -->
-    <!-- load the sidebar here -->
+<div class="row m-0" style="min-height:calc(100vh - 72px);">
     {% include 'dashboard/sidebar.html' %}
 
-    <!-- Right side content -->
     <div class="col-md-9">
-         <h2>All Categories</h2>
-         <a href="{% url 'add_category' %}" class="btn btn-dark text-light float-right mb-2">Add New</a>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Category Name</th>
-                    <th scope="col">Created At</th>
-                    <th scope="col">Updated At</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {%for cat in categories%}
-                <tr>
-                    <th scope="row">{{ forloop.counter}}</th>
-                    <td>{{cat}}</td>
-                    <td>{{cat.created_at}}</td>
-                    <td>@{{cat.updated_at}}</td>
-                    <td>
-                        {%if perms.blog.change_category%}
-                        <a href="{%url 'edit_category' cat.id%}"><i class="fa fa-edit text-success"></i></a>
-                        {%else%}
-                        -
-                        {%endif%}
+        <div class="dash-content">
 
-                        &nbsp;
-                        {%if perms.blog.delete_category%}
-                        <a href="{%url 'delete_category' cat.id%}"><i class="fa fa-trash text-danger"></i></a>
-                        {%else%}
-                        -
-                        {%endif%}
-                    </td>
-                </tr>
-                {%endfor%}
-                
-                </tr>
-            </tbody>
-        </table>
+            <div class="dash-page-header">
+                <div>
+                    <p class="dash-page-label">Manage</p>
+                    <h1 class="dash-page-title">Categories</h1>
+                </div>
+                <a href="{% url 'add_category' %}" class="dash-add-btn">
+                    <i class="fa fa-plus"></i> Add New
+                </a>
+            </div>
 
+            <div class="dash-table-wrap">
+                <table class="dash-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Category Name</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cat in categories %}
+                        <tr>
+                            <th>{{ forloop.counter }}</th>
+                            <td class="cell-title">{{ cat }}</td>
+                            <td>{{ cat.created_at }}</td>
+                            <td>{{ cat.updated_at }}</td>
+                            <td>
+                                {% if perms.blog.change_category %}
+                                <a href="{% url 'edit_category' cat.id %}" class="dash-action dash-action-edit">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                {% else %}
+                                <span class="dash-action-none">—</span>
+                                {% endif %}
+
+                                {% if perms.blog.delete_category %}
+                                <a href="{% url 'delete_category' cat.id %}" class="dash-action dash-action-delete ml-1">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                {% else %}
+                                <span class="dash-action-none">—</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">
+                                <div class="dash-empty">
+                                    <i class="fa fa-tag"></i>
+                                    No categories yet.
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
 </div>
 

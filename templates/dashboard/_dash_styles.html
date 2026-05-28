@@ -1,0 +1,219 @@
+<style>
+
+    .dash-content{
+
+        padding:40px;
+
+        width:100%;
+    }
+
+    .dash-page-header{
+
+        display:flex;
+
+        justify-content:space-between;
+
+        align-items:center;
+
+        margin-bottom:30px;
+    }
+
+    .dash-page-label{
+
+        font-size:14px;
+
+        font-weight:600;
+
+        color:#94a3b8;
+
+        text-transform:uppercase;
+
+        letter-spacing:2px;
+
+        margin-bottom:8px;
+    }
+
+    .dash-page-title{
+
+        font-size:42px;
+
+        font-weight:700;
+
+        color:#0f172a;
+
+        margin:0;
+    }
+
+    .dash-add-btn{
+
+        background:#facc15;
+
+        color:#0f172a;
+
+        padding:14px 22px;
+
+        border-radius:14px;
+
+        font-weight:600;
+
+        text-decoration:none !important;
+
+        transition:0.3s;
+    }
+
+    .dash-add-btn:hover{
+
+        background:#fbbf24;
+
+        transform:translateY(-2px);
+
+        color:#0f172a;
+    }
+
+    .dash-table-wrap{
+
+        background:white;
+
+        border-radius:24px;
+
+        overflow:hidden;
+
+        box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .dash-table{
+
+        width:100%;
+
+        border-collapse:collapse;
+    }
+
+    .dash-table thead{
+
+        background:#0f172a;
+
+        color:white;
+    }
+
+    .dash-table th{
+
+        padding:20px;
+
+        font-size:15px;
+
+        font-weight:600;
+    }
+
+    .dash-table td{
+
+        padding:20px;
+
+        border-bottom:1px solid #e2e8f0;
+
+        color:#475569;
+
+        font-size:15px;
+    }
+
+    .cell-title{
+
+        font-weight:600;
+
+        color:#0f172a;
+    }
+
+    .dash-action{
+
+        width:38px;
+
+        height:38px;
+
+        border-radius:10px;
+
+        display:inline-flex;
+
+        align-items:center;
+
+        justify-content:center;
+
+        text-decoration:none !important;
+
+        transition:0.3s;
+    }
+
+    .dash-action-edit{
+
+        background:#dbeafe;
+
+        color:#2563eb;
+    }
+
+    .dash-action-delete{
+
+        background:#fee2e2;
+
+        color:#dc2626;
+    }
+
+    .dash-action:hover{
+
+        transform:translateY(-2px);
+    }
+
+    .dash-action-none{
+
+        color:#cbd5e1;
+
+        font-size:18px;
+    }
+
+    .dash-empty{
+
+        padding:50px;
+
+        text-align:center;
+
+        color:#94a3b8;
+
+        font-size:18px;
+    }
+
+    .dash-empty i{
+
+        font-size:40px;
+
+        margin-bottom:15px;
+
+        display:block;
+    }
+
+    @media(max-width:768px){
+
+        .dash-content{
+
+            padding:20px;
+        }
+
+        .dash-page-header{
+
+            flex-direction:column;
+
+            align-items:flex-start;
+
+            gap:20px;
+        }
+
+        .dash-page-title{
+
+            font-size:32px;
+        }
+
+        .dash-table{
+
+            display:block;
+
+            overflow-x:auto;
+        }
+    }
+
+</style>

@@ -1,41 +1,157 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 
-{% block content%}
+{% block content %}
 
-<h2 class="section-title mt-5">
+<style>
+    .search-header {
+        padding: 52px 0 36px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 48px;
+    }
 
-    Search keyword - {{ keyword }}
+    .search-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--amber);
+        margin-bottom: 8px;
+    }
 
-</h2>
+    .search-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 42px;
+        font-weight: 900;
+        letter-spacing: -1px;
+        color: var(--ink);
+        margin: 0;
+        line-height: 1.1;
+    }
+
+    .search-title em {
+        font-style: italic;
+        color: var(--amber);
+    }
+
+    /* Same image-left card as category */
+    .search-post {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        background: var(--card-bg);
+        margin-bottom: 3px;
+        overflow: hidden;
+        border-left: 3px solid transparent;
+        transition: border-color 0.2s;
+        min-height: 210px;
+    }
+
+    .search-post:hover { border-left-color: var(--amber); }
+
+    .search-post-img {
+        width: 100%;
+        height: 100%;
+        min-height: 210px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .search-post-body {
+        padding: 30px 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .search-post-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 26px;
+        font-weight: 700;
+        line-height: 1.25;
+        color: var(--ink);
+        margin-bottom: 14px;
+        letter-spacing: -0.5px;
+    }
+
+    .search-post-excerpt {
+        font-size: 15px;
+        color: #4a453f;
+        line-height: 1.75;
+        flex: 1;
+        margin-bottom: 22px;
+    }
+
+    .search-read-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--ink);
+        color: var(--cream) !important;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        padding: 10px 22px;
+        text-decoration: none;
+        transition: background 0.2s, gap 0.2s;
+        align-self: flex-start;
+    }
+
+    .search-read-btn:hover {
+        background: var(--amber);
+        color: var(--ink) !important;
+        gap: 12px;
+        text-decoration: none;
+    }
+
+    .no-results {
+        padding: 80px 0;
+        text-align: center;
+    }
+
+    .no-results h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 28px;
+        color: var(--ink);
+        margin-bottom: 12px;
+    }
+
+    .no-results p {
+        color: var(--muted);
+        font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+        .search-post { grid-template-columns: 1fr; }
+        .search-post-img { min-height: 200px; height: 200px; }
+    }
+</style>
+
+<div class="search-header">
+    <p class="search-label">Search Results</p>
+    <h1 class="search-title">Results for <em>"{{ keyword }}"</em></h1>
+</div>
 
 {% for post in blogs %}
-
-<div class="hero-section mb-4"
-     style="background-image:url({{ post.featured_image.url }});">
-
-    <div class="col-lg-8 px-0">
-
-        <h1 class="hero-title">
-
-            {{ post.title }}
-
-        </h1>
-
-        <p class="hero-desc">
-
-            {{ post.short_description|truncatewords:30 }}
-
-        </p>
-
-        <a href="{%url 'single_blog' post.slug%}"
-           class="btn btn-warning mt-3">
-
-            Continue Reading
-
+<div class="search-post">
+    <img class="search-post-img" src="{{ post.featured_image.url }}" alt="{{ post.title }}">
+    <div class="search-post-body">
+        <div>
+            <div class="blog-meta mb-2">{{ post.created_at|timesince }} ago &nbsp;·&nbsp; {{ post.author }}</div>
+            <div class="search-post-title">{{ post.title }}</div>
+            <p class="search-post-excerpt">{{ post.short_description|truncatewords:30 }}</p>
+        </div>
+        <a href="{% url 'single_blog' post.slug %}" class="search-read-btn">
+            Read Article <i class="fa fa-arrow-right"></i>
         </a>
-
     </div>
-
 </div>
-{%endfor%}
+{% empty %}
+<div class="no-results">
+    <h3>Nothing found for "{{ keyword }}"</h3>
+    <p>Try a different search term or browse our categories.</p>
+</div>
+{% endfor %}
+
+<div style="padding-bottom: 60px;"></div>
+
 {% endblock %}

@@ -1,22 +1,36 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 
-{%block content%}
+{% block content %}
 {% load crispy_forms_tags %}
-<div class="row">
-    <!-- Left sidebar -->
-    <!-- load the sidebar here -->
+{% include 'dashboard/_dash_styles.html' %}
+<div class="row m-0" style="min-height:calc(100vh - 72px);">
     {% include 'dashboard/sidebar.html' %}
 
-    <!-- Right side content -->
     <div class="col-md-9">
-        <h2>Add New Post</h2>
-        
-        <form action="{% url 'add_post' %}" method="POST" style="width:500px;" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form | crispy }}
-            <button type="submit" class="btn btn-warning">Submit</button>
-        </form>
-        <br>
+        <div class="dash-content">
+
+            <div class="dash-page-header">
+                <div>
+                    <p class="dash-page-label">Posts</p>
+                    <h1 class="dash-page-title">New Post</h1>
+                </div>
+                <a href="{% url 'my_posts' %}" class="dash-add-btn" style="background:var(--surface); color:var(--ink) !important; border:1px solid var(--border);">
+                    <i class="fa fa-arrow-left"></i> Back
+                </a>
+            </div>
+
+            <div class="dash-form-wrap" style="max-width:660px;">
+                <form action="{% url 'add_post' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button type="submit" class="dash-form-submit">
+                        Publish Post <i class="fa fa-paper-plane-o"></i>
+                    </button>
+                </form>
+            </div>
+
+        </div>
     </div>
 </div>
-{%endblock%}
+
+{% endblock %}

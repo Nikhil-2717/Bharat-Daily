@@ -1,52 +1,74 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
+{% include 'dashboard/_dash_styles.html' %}
 
-<div class="row">
-    <!-- Left sidebar -->
-    <!-- load the sidebar here -->
+<div class="row m-0" style="min-height:calc(100vh - 72px);">
     {% include 'dashboard/sidebar.html' %}
 
-    <!-- Right side content -->
     <div class="col-md-9">
-         
-         <h2>All Users</h2>
-         <a href="{%url 'add_user' %}" class="btn btn-dark text-light float-right mb-2">Add New</a>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Full Name</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Published</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {%for user in users%}
-                <tr>
-                    <th scope="row">{{ forloop.counter}}</th>
-                    <td>{{user.first_name}} {{user.last_name}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <a href="{%url 'edit_user' user.id%}"><i class="fa fa-edit text-success"></i></a>
-                        &nbsp;
-                        <a href="{%url 'delete_user' user.id%}"><i class="fa fa-trash text-danger"></i></a>
-                    </td>
-                </tr>
-                {%endfor%}
-                
-                </tr>
-            </tbody>
-        </table>
-        
+        <div class="dash-content">
 
+            <div class="dash-page-header">
+                <div>
+                    <p class="dash-page-label">Manage</p>
+                    <h1 class="dash-page-title">All Users</h1>
+                </div>
+                <a href="{% url 'add_user' %}" class="dash-add-btn">
+                    <i class="fa fa-plus"></i> Add New
+                </a>
+            </div>
+
+            <div class="dash-table-wrap">
+                <table class="dash-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <th>{{ forloop.counter }}</th>
+                            
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>
+                                {% if user.is_active %}
+                                <span class="status-pill" style="color:#16a34a; border-color:#bbf7d0; background:#f0fdf4;">Active</span>
+                                {% else %}
+                                <span class="status-pill" style="color:#dc2626; border-color:#fecaca; background:#fef2f2;">Inactive</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'edit_user' user.id %}" class="dash-action dash-action-edit">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="{% url 'delete_user' user.id %}" class="dash-action dash-action-delete ml-1">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">
+                                <div class="dash-empty">
+                                    <i class="fa fa-users"></i>
+                                    No users found.
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
 </div>
 
